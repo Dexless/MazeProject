@@ -16,11 +16,11 @@ void testEnemyMovement() {
     };
 
     PrimMaze maze(2, 2, layout);
-    Enemy enemy(6);  // Start at (1,1) in the 5x5 grid, 1D index 6
+    Enemy enemy(6, maze);  // Start at (1,1) in the 5x5 grid, 1D index 6
     
     enemy.updateTarget(18);  // Set target at (3,3), 1D index 18
     
-    enemy.updatePathing(maze);  // Calculate path to target
+    enemy.updatePathing(maze.getMaze());  // Calculate path to target
     // Check if the shortest path is calculated correctly
     
     maze.drawMaze(18,6);
@@ -31,9 +31,11 @@ void testEnemyMovement() {
     std::vector<int> expectedSteps = {7, 12, 17, 18};  // Expected sequence of steps to the target
     for (int expectedLocation : expectedSteps) 
     {
-        enemy.takeStep(maze);  // Move the enemy
+        enemy.takeStep();  // Move the enemy
+        if(enemy.currentLocation != expectedLocation) cout << enemy.currentLocation << " " << expectedLocation << endl;
         assert(enemy.currentLocation == expectedLocation);
         maze.drawMaze(18,enemy.currentLocation);
+        cout << endl;
     }
 
     std::cout << "Enemy movement test passed!" << std::endl;

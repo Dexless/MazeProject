@@ -1,19 +1,4 @@
-/*************************************************************************************
-*                                                                                    *
-* A priority queue is a special variation of a queue. Rather than returning the fisrt*
-* value inserted, it returns the highest priority value. To do this, data must be    *
-* stored in pairs. For every value of any type you insert, you must also give it a   *
-* numerical priority. The data structure can then be set up to always return the     *
-* highest value priority, or the lowest. For finding the shortest path, you will want*
-* to always return the lowest value priority.                                        *
-* NOTE: Priority Queues are normally created using heaps. Since you have not studied * 
-* heaps, we will use a SLL instead.                                                  *
-* To make a normal SLL based queue into a priority queue you just need to adjust the *
-* append function to search for the appropriate location (ascending order) before    *
-* inserting.                                                                         *
-*                                                                                    *
-*************************************************************************************/
-
+#include <stdexcept>
 struct Node 
 {
     int distance;  // The priority (distance in this case)
@@ -58,25 +43,28 @@ public:
         Node* newNode = new Node(distance, cellIndex);
 
         // If the list is empty or the new node has a higher priority (smaller distance)
-        if () 
+        if (head == nullptr || newNode->distance < head->distance) 
         {
 			// Insert the newNode before the head using 2 assignments
             // Assignment 1
             // Assignment 2
+            newNode->next = head;
+            head = newNode;
         }
         else 
         {
             Node* current = head;
             // Traverse the list to find the location where the next node's distance
             // is greater than to the given distance or their is no next object
-            while () 
+            while ((current->next) && newNode->distance >= current->next->distance) 
             {
                 current = current->next;
             }
-
             // Insert the newNode after current using 2 assignments
             // Assignment 1
             // Assignment 2
+            newNode->next = current->next;
+            current->next = newNode;
         }
     }
 
